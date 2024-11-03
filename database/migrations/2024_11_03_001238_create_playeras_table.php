@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('playeras', function (Blueprint $table) {
             $table->id(); // ID
+            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
             $table->string('talla'); // talla
             $table->string('color'); // color
             $table->string('material'); // material
-            
             $table->timestamps(); // Mejora: para manejar fechas de creación y actualización
             $table->softDeletes(); // Soft Delete
         });

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vinil', function (Blueprint $table) {
             $table->id(); // ID
+            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
             $table->string('tamañoMedida'); // tamaño/medida
             $table->string('material'); // material: blanco, transparente
             $table->decimal('largo', 10, 2); // largo

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tazas', function (Blueprint $table) {
             $table->id(); // ID
+            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
             $table->string('color'); // color
             $table->timestamps(); // Mejora: para manejar fechas de creación y actualización
             $table->softDeletes(); // Soft Delete
