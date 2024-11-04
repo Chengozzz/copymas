@@ -10,7 +10,7 @@ class Producto extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nombre', 'tipo'];
+    protected $fillable = ['nombre', 'cantidad', 'precio'];
 
     public function lona()
     {
