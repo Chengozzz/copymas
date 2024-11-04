@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vinil', function (Blueprint $table) {
+        Schema::create('viniles', function (Blueprint $table) {
             $table->id(); // ID
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->string('tamañoMedida'); // tamaño/medida
+            $table->decimal('tamañoMedida',10,2); // tamaño/medida
             $table->string('material'); // material: blanco, transparente
             $table->decimal('largo', 10, 2); // largo
             $table->decimal('largoRestante', 10, 2); // largo restante
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vinil');
+        Schema::dropIfExists('viniles');
     }
 };

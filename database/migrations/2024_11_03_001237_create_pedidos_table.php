@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id(); // ID
-            $table->string('nombreCliente'); // nombreCliente
+            $table->foreignId('nombreCliente')->constraided('clientes'); // nombreCliente
             $table->date('fecha'); // Fecha
             $table->foreignId('productoComprado')->constrained('productos'); // productoComprado (Mejora: relación con productos)
             $table->decimal('total', 10, 2); // total

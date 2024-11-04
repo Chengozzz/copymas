@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // ID
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
             $table->string('color'); // color
+            $table->string('descripcion')->nullable()->default('text');
             $table->timestamps(); // Mejora: para manejar fechas de creación y actualización
             $table->softDeletes(); // Soft Delete
         });
