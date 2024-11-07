@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // 'product.middleware' => \App\Http\Middleware\ProductMiddleware::class,
         
-        $middleware->add(App\Http\Middleware\ProductMiddleware::class);
+      //  $middleware->add(App\Http\Middleware\ProductMiddleware::class);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -1,8 +1,11 @@
 <?php
+//aqui manejamos el controller del pedido xd
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pedido; // Asegúrate de que esta línea esté presente
+use Carbon\Carbon;
 
 class ProductoController extends Controller
 {
@@ -19,6 +22,45 @@ class ProductoController extends Controller
 
         // Devuelve una respuesta JSON con el producto creado
         return response()->json($producto, 201);
+    }
+
+    public function index() //index de pedidos
+    {
+        $totalPedidos = Pedido::count();
+
+        // Obtener la suma del total de los pedidos del mes actual
+        $mesActual = Carbon::now()->format('m');
+        $totalVentas = Pedido::whereMonth('fecha', $mesActual)->sum('total');
+
+        // Contar los pedidos con estado 'pendiente'
+        $pendientes = Pedido::where('estadoActual', 'pendiente')->count();
+
+        // Obtén todos los pedidos
+        $pedidos = Pedido::all();
+
+        // Pasar los pedidos a la vista
+        //return view('dashboard', compact('pedidos'));
+        return view('dashboard', compact('totalPedidos','pedidos', 'totalVentas', 'pendientes'));
+
+    }
+    public function index2() //index de pedidos
+    {
+        //$totalPedidos = Pedido::count();
+
+        // Obtener la suma del total de los pedidos del mes actual
+       // $mesActual = Carbon::now()->format('m');
+       // $totalVentas = Pedido::whereMonth('fecha', $mesActual)->sum('total');
+
+        // Contar los pedidos con estado 'pendiente'
+        //$pendientes = Pedido::where('estadoActual', 'pendiente')->count();
+
+        // Obtén todos los pedidos
+        $pedidos = Pedido::all();
+
+        // Pasar los pedidos a la vista
+        //return view('dashboard', compact('pedidos'));
+        return view('vistas.pedidos', compact('pedidos'));
+
     }
 }
 

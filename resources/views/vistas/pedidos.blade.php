@@ -25,24 +25,7 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-            <!-- Dashboard Header -->
-            <h2 class="text-3xl font-bold mb-6">Dashboard</h2>
-    
-            <!-- Dashboard Stats -->
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    <p class="text-lg">Órdenes Totales</p>
-                    <p class="text-2xl font-semibold">{{ number_format($totalPedidos) }}</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    <p class="text-lg">Ventas Totales</p>
-                    <p class="text-2xl font-semibold">${{ number_format($totalVentas, 2) }}</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    <p class="text-lg">Pendientes</p>
-                    <p class="text-2xl font-semibold">{{ number_format($pendientes) }}</p>
-                </div>
-            </div>
+        
             
             <!-- Sales Table -->
             <div class="bg-gray-800 p-4 rounded-lg">
