@@ -50,18 +50,20 @@
                     <tbody>
                         @foreach ($pedidos as $pedido)
                         <tr class="border-t border-gray-700">
-                            <td class="px-4 py-2">{{ $pedido->producto_id }}</td>
-                            <td class="px-4 py-2">{{ $pedido->cliente_id }}</td>
+                            <td class="px-4 py-2">{{ $pedido->producto->nombre }}</td>
+                            {{-- <td class="px-4 py-2">{{ $pedido->cliente_id }}</td> --}}
+                            <td class="px-4 py-2">{{ $pedido->cliente->nombre }}</td>  <!-- Mostrar el nombre del cliente -->
+
                             <td class="px-4 py-2">{{ $pedido->fecha }}</td>
                             <td class="px-4 py-2">{{ $pedido->entregado }}</td>
                             <td class="px-4 py-2">{{ $pedido->total }}</td>
                             <td class="px-4 py-2">
                                 @if ($pedido->estadoActual == 'recibido')
-                                <span class="px-3 py-1 rounded-full text-sm bg-green-500 text-white">Recibido</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-yellow-500 text-white">Recibido</span>
                                 @elseif ($pedido->estadoActual == 'pendiente')
-                                <span class="px-3 py-1 rounded-full text-sm bg-yellow-500 text-white">Pendiente</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-red-500 text-white">Pendiente</span>
                                 @else
-                                <span class="px-3 py-1 rounded-full text-sm bg-red-500 text-white">Cancelado</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-green-500 text-white">Cancelado</span>
                                 @endif
                             </td>
                         </tr>
