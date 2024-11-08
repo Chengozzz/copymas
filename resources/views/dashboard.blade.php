@@ -13,7 +13,7 @@
             <h1 class="text-2xl font-semibold mb-4">CopyMas</h1>
             <nav class="space-y-2">
                 <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded bg-gray-700 text-white">Dashboard</a>
-                <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Productos</a>
+                <a href="{{ route('productos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Productos</a>
                 <a href="{{ route('pedidos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Pedidos</a>
                 <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Stock productos</a>
                 <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Agenda</a>

@@ -24,8 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware(['auth'])->group(function () {
-   // Route::get('/productos', [ProductoController::class, 'index'])->name('productos');
+    Route::get('/productos', [ProductoController::class, 'indexProductos'])->name('productos');
+    Route::get('/crearProductos', [ProductoController::class, 'crearProductos'])->name('crearProductos');
+
     Route::get('/pedidos', [ProductoController::class, 'index2'])->name('pedidos');
+    Route::get('/crearPedidos', [ProductoController::class, 'crearPedidos'])->name('crearPedidos');
+    Route::post('/pedidosStore', [ProductoController::class, 'store'])->name('pedidosStore');
+
   //  Route::get('/stock-productos', [StockController::class, 'index'])->name('stock.productos');
    // Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
     //Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion');

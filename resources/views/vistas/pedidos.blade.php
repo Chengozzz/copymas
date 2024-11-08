@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <div class="flex justify-between items-center">
+
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Dashboard') }}
+            </h2>
+            <a href="{{ route('crearPedidos') }}" class="bg-green-600 text-white px-4 py-2 rounded-lg">
+                Agregar Pedido
+            </a>
+        </div>
     </x-slot>
 
     {{-- Contenedor principal con flex --}}

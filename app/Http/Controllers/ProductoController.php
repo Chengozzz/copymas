@@ -4,12 +4,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pedido; // Asegúrate de que esta línea esté presente
-use Carbon\Carbon;
-
+use App\Models\Pedido; // Modelo pedido
+use App\Models\Producto; //Modelo producto
+use App\Models\Cliente; //Modelo cliente
+use Carbon\Carbon; //dependencia para el tiempo 
 class ProductoController extends Controller
 {
-    protected function crearProducto(Request $request)
+    protected function crearProducto(Request $request) // producto
     {
         // Lógica común para crear un producto
         $producto = Producto::create($request->only('nombre', 'tipo'));
@@ -17,11 +18,33 @@ class ProductoController extends Controller
     }
     public function store(Request $request)
     {
-        // el producto que fue creado en el middleware
-        $producto = $request->attributes->get('producto');
+         // Validación de los datos
+        $request->validate([
+            'cliente' => 'required|exists:clientes,id',
+            'producto' => 'required|exists:productos,id',
+            'cantidad' => 'required|integer|min:1',
+            'total' => 'required|numeric|min:0',
+            'medio' => 'required|string',
+            'anticipo' => 'nullable|numeric|min:0',
+        ]);
 
-        // Devuelve una respuesta JSON con el producto creado
-        return response()->json($producto, 201);
+        // Crear un nuevo pedido
+        $pedido = new Pedido();
+        $pedido->cliente_id = $request->cliente;
+        $pedido->fecha= today();
+        $pedido->producto_id = $request->producto;
+        $pedido->total = $request->total;
+        $pedido->cantidadProductos = $request->cantidad;
+        $pedido->estadoActual= 'recibido'; 
+        $pedido->medio = $request->medio;
+        //agregar metodo pago
+        $pedido->metodoPago= 0; 
+        $pedido->anticipo = $request->anticipo ?? 0; // Si no hay anticipo, se asume 0
+        $pedido->entregado= 0;
+        $pedido->save();
+
+        // Redireccionar con un mensaje de éxito
+        return redirect()->route('pedidos')->with('success', 'Pedido creado con éxito.');
     }
 
     public function index() //index de pedidos
@@ -62,5 +85,28 @@ class ProductoController extends Controller
         return view('vistas.pedidos', compact('pedidos'));
 
     }
+    //index productos
+    public function indexProductos()
+    {
+        $productos = Producto::all();
+        return view('vistas.productos',compact('productos'));
+    }
+
+    //form para crear productos (no creo se quede)
+    public function crearProductos()
+    {
+        return view('forms.productos');
+    }
+
+    //form para crear pedidos
+    public function crearPedidos()
+    {
+        $clientes = Cliente::all();   // Obtiene todos los clientes
+        $productos = Producto::all(); // Obtiene todos los productos
+
+        return view('forms.pedidos', compact('clientes', 'productos'));
+    }
+
+
 }
 
