@@ -8,6 +8,7 @@ use App\Models\Pedido; // Modelo pedido
 use App\Models\Producto; //Modelo producto
 use App\Models\Cliente; //Modelo cliente
 use Carbon\Carbon; //dependencia para el tiempo 
+
 class ProductoController extends Controller
 {
     protected function crearProducto(Request $request) // producto

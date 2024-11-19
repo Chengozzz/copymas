@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ClienteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/crearPedidos', [ProductoController::class, 'crearPedidos'])->name('crearPedidos');
     Route::post('/pedidosStore', [ProductoController::class, 'store'])->name('pedidosStore');
 
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
   //  Route::get('/stock-productos', [StockController::class, 'index'])->name('stock.productos');
    // Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
     //Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion');
