@@ -13,17 +13,21 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id(); // ID
-            $table->string('nombreCliente'); // nombreCliente
+            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
+
+         //   $table->foreignId('nombreCliente')->constraided('clientes'); // nombreCliente
             $table->date('fecha'); // Fecha
-            $table->foreignId('productoComprado')->constrained('productos'); // productoComprado (Mejora: relación con productos)
+            
+            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade'); // Cambia a `set null` si el producto puede eliminarse 
+                        // Clave foránea para el producto, siguiendo la convención `producto_id`
             $table->decimal('total', 10, 2); // total
             $table->integer('cantidadProductos'); // cantidadProductos
             $table->string('estadoActual'); // estadoActual
-            $table->string('medio'); // (Mejora: por donde se recibió)
+            $table->string('medio'); //  por donde se recibió)
             $table->decimal('anticipo', 10, 2)->nullable(); // anticipo
             $table->boolean('entregado')->default(false); // entregado
-            $table->string('metodoPago'); // metodo de pago
-            $table->timestamps(); // Mejora: para manejar fechas de creación y actualización
+            $table->boolean('metodoPago'); // metodo de pago 0 persona/ 1digital
+            $table->timestamps(); //  para manejar fechas de creación y actualización
             $table->softDeletes(); // Soft Delete
         });
         

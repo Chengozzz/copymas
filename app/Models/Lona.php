@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lona extends Model
 {
+    //protected $table = 'lona'; // Asegúrate de que el nombre de la tabla sea 'lona'
+
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['producto_id', 'tamañoMedida', 'largo', 'largoRestante'];
