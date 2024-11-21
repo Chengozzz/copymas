@@ -16,7 +16,7 @@
                 <a href="{{ route('productos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Productos</a>
                 <a href="{{ route('pedidos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Pedidos</a>
                 {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Stock productos</a> --}}
-                <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Clientes</a>
+                <a href="{{ route('clientes') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Clientes</a>
                 {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Configuración</a>
                 <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Cerrar sesión</a> --}}
             </nav>
@@ -61,10 +61,10 @@
                     <tbody>
                         @foreach ($pedidos as $pedido)
                         <tr class="border-t border-gray-700">
-                            <td class="px-4 py-2">{{ $pedido->producto_id }}</td>
-                            <td class="px-4 py-2">{{ $pedido->cliente_id }}</td>
+                            <td class="px-4 py-2">{{ $pedido->producto->nombre }}</td>
+                            <td class="px-4 py-2">{{ $pedido->cliente->nombre }}</td>
                             <td class="px-4 py-2">{{ $pedido->fecha }}</td>
-                            <td class="px-4 py-2">{{ $pedido->entregado }}</td>
+                            <td class="px-4 py-2">{{ $pedido->cantidadProductos }}</td>
                             <td class="px-4 py-2">{{ $pedido->total }}</td>
                             <td class="px-4 py-2">
                                 @if ($pedido->estadoActual == 'recibido')

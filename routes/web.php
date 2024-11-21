@@ -15,7 +15,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 
- Route::get('/dashboard', [ProductoController::class, 'index'])
+Route::get('/dashboard', [ProductoController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -27,12 +27,22 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/productos', [ProductoController::class, 'indexProductos'])->name('productos');
     Route::get('/crearProductos', [ProductoController::class, 'crearProductos'])->name('crearProductos');
+    Route::post('/productoStore', [ProductoController::class, 'productoStore'])->name('productoStore');
 
     Route::get('/pedidos', [ProductoController::class, 'index2'])->name('pedidos');
     Route::get('/crearPedidos', [ProductoController::class, 'crearPedidos'])->name('crearPedidos');
     Route::post('/pedidosStore', [ProductoController::class, 'store'])->name('pedidosStore');
+   //editar pedido
+    Route::get('/pedidos/{id}/editar', [ProductoController::class, 'editarPedido'])->name('editarPedido');
+    Route::put('/pedidos/{id}', [ProductoController::class, 'actualizarPedido'])->name('actualizarPedido');
+    //borrar pedido
+    Route::delete('/pedidos/{id}', [ProductoController::class, 'borrarPedido'])->name('borrarPedido');
+
 
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
+    Route::get('/crearCliente', [ClienteController::class, 'crearCliente'])->name('crearCliente');
+    Route::post('/clienteStore', [ClienteController::class, 'store'])->name('clienteStore');
+    
   //  Route::get('/stock-productos', [StockController::class, 'index'])->name('stock.productos');
    // Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
     //Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion');

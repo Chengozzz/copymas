@@ -22,7 +22,7 @@
             <a href="{{ route('productos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Productos</a>
             <a href="{{ route('pedidos') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Pedidos</a>
             {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Stock productos</a> --}}
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Clientes</a>
+            <a href="{{ route('clientes') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Clientes</a>
             {{-- <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Configuración</a>
             <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Cerrar sesión</a> --}}
         </nav>
@@ -31,8 +31,6 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-        
-            
             <!-- Sales Table -->
             <div class="bg-gray-800 p-4 rounded-lg">
                 <h3 class="text-xl font-semibold mb-4">Ventas</h3>
@@ -45,26 +43,44 @@
                             <th class="px-4 py-2">Piezas</th>
                             <th class="px-4 py-2">Cantidad</th>
                             <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($pedidos as $pedido)
                         <tr class="border-t border-gray-700">
                             <td class="px-4 py-2">{{ $pedido->producto->nombre }}</td>
-                            {{-- <td class="px-4 py-2">{{ $pedido->cliente_id }}</td> --}}
-                            <td class="px-4 py-2">{{ $pedido->cliente->nombre }}</td>  <!-- Mostrar el nombre del cliente -->
-
+                            <td class="px-4 py-2">{{ $pedido->cliente->nombre }}</td>
                             <td class="px-4 py-2">{{ $pedido->fecha }}</td>
-                            <td class="px-4 py-2">{{ $pedido->entregado }}</td>
+                            <td class="px-4 py-2">{{ $pedido->cantidadProductos }}</td>
                             <td class="px-4 py-2">{{ $pedido->total }}</td>
                             <td class="px-4 py-2">
                                 @if ($pedido->estadoActual == 'recibido')
-                                <span class="px-3 py-1 rounded-full text-sm bg-yellow-500 text-white">Recibido</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-green-500 text-white">Recibido</span>
                                 @elseif ($pedido->estadoActual == 'pendiente')
-                                <span class="px-3 py-1 rounded-full text-sm bg-red-500 text-white">Pendiente</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-yellow-500 text-white">En proceso</span>
                                 @else
-                                <span class="px-3 py-1 rounded-full text-sm bg-green-500 text-white">Cancelado</span>
+                                <span class="px-3 py-1 rounded-full text-sm bg-red-500 text-white">Cancelado</span>
                                 @endif
+                            </td>
+                            <td class="px-4 py-2 flex gap-2">
+                                <!-- Botón de Editar -->
+                                <button 
+                                    class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg"
+                                    onclick="window.location.href='{{ route('editarPedido', $pedido->id) }}'">
+                                    Editar
+                                </button>
+        
+                                <!-- Botón de Eliminar -->
+                                <form action="{{ route('borrarPedido', $pedido->id) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este pedido?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button 
+                                        class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg"
+                                        type="submit">
+                                        Eliminar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -72,5 +88,6 @@
                 </table>
             </div>
         </div>
+        
     </div>
 </x-app-layout>

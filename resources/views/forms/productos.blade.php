@@ -27,7 +27,8 @@
     <!-- Formulario centrado -->
 <!-- Formulario centrado -->
 <div class="flex-1 flex items-center justify-center">
-    <form class="w-full max-w-lg bg-gray-800 p-8 rounded-lg shadow-xl">
+    <form action="{{ route('productoStore') }}" method="POST" class="w-full max-w-lg bg-gray-800 p-8 rounded-lg shadow-xl">
+        @csrf
         <div class="grid gap-6">
             <div class="flex gap-3">
                 <input class="capitalize shadow-lg p-3 w-full outline-none border-b-2 border-transparent focus:border-blue-500 placeholder-gray-500" type="text" placeholder="Nombre" id="nombre" name="nombre" required="">
@@ -35,13 +36,13 @@
             <div class="grid gap-6">
                 <input class="p-3 shadow-lg w-full placeholder-gray-500 outline-none border-b-2 border-transparent focus:border-blue-500" type="number" placeholder="Cantidad" id="cantidad" name="cantidad" required="">
                 <input class="p-3 shadow-lg w-full placeholder-gray-500 outline-none border-b-2 border-transparent focus:border-blue-500" type="text" placeholder="Precio" id="precio" name="precio" required="">
-                <select class="p-3 shadow-lg w-full placeholder-gray-500 outline-none border-b-2 border-transparent focus:border-blue-500" id="tipo" name="tipo" required="">
+                {{-- <select class="p-3 shadow-lg w-full placeholder-gray-500 outline-none border-b-2 border-transparent focus:border-blue-500" id="tipo" name="tipo" required="">
                     <option value="">Seleccione un tipo</option>
                     <option value="lona">Lona</option>
                     <option value="vinil">Vinil</option>
                     <option value="taza">Taza</option>
                     <option value="playera">Playera</option>
-                </select>
+                </select> --}}
             </div>
             <button class="outline-none shadow-lg w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 font-bold" type="submit">Enviar</button>
         </div>
