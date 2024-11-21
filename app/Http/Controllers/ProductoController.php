@@ -134,74 +134,112 @@ class ProductoController extends Controller
         //return view('dashboard', compact('pedidos'));
         return view('vistas.pedidos', compact('pedidos'));
 
-    }
-    //index productos
-    public function indexProductos()
-    {
-        $productos = Producto::all();
-        return view('vistas.productos',compact('productos'));
-    }
+            }
+            //index productos
+            public function indexProductos()
+            {
+                $productos = Producto::all();
+                return view('vistas.productos',compact('productos'));
+            }
 
-    //form para crear productos (no creo se quede)
-    public function crearProductos()
-    {
-        return view('forms.productos');
-    }
+            //form para crear productos (no creo se quede)
+            public function crearProductos()
+            {
+                return view('forms.productos');
+            }
 
-    //form para crear pedidos
-    public function crearPedidos()
-    {
-        $clientes = Cliente::all();   // Obtiene todos los clientes
-        $productos = Producto::all(); // Obtiene todos los productos
+            //form para crear pedidos
+            public function crearPedidos()
+            {
+                $clientes = Cliente::all();   // Obtiene todos los clientes
+                $productos = Producto::all(); // Obtiene todos los productos
 
-        return view('forms.pedidos', compact('clientes', 'productos'));
-    }
+                return view('forms.pedidos', compact('clientes', 'productos'));
+            }
 
-    //editar pedido
-    public function editarPedido($id)
-    {
-        $pedido = Pedido::findOrFail($id);
-        return view('forms.editarPedido', compact('pedido'));
-    }
+            //editar pedido
+            public function editarPedido($id)
+            {
+                $pedido = Pedido::findOrFail($id);
+                return view('forms.editarPedido', compact('pedido'));
+            }
 
-    public function actualizarPedido(Request $request, $id)
-    {
-        $request->validate([
-            'cantidadProductos' => 'required|integer|min:1',
-            'estadoActual' => 'required|string|in:recibido,pendiente,cancelado',
-            'total' => 'required|numeric|min:0',
-        ]);
-    
-        $pedido = Pedido::findOrFail($id);
-        
-        // Actualizar los campos
-        $pedido->cantidadProductos = $request->input('cantidadProductos');
-        $pedido->estadoActual = $request->input('estadoActual');
-        $pedido->total = $request->input('total');
-        
-        // Guardar los cambios
-        $pedido->save();
-    
-        // Redireccionar o mostrar mensaje de éxito
-        return redirect()->route('pedidos')->with('success', 'Pedido actualizado correctamente.');
-    }
-    public function borrarPedido($id)
-{
-    try {
-        // Buscar el pedido por ID
-        $pedido = Pedido::findOrFail($id);
+            public function actualizarPedido(Request $request, $id)
+            {
+                $request->validate([
+                    'cantidadProductos' => 'required|integer|min:1',
+                    'estadoActual' => 'required|string|in:recibido,pendiente,cancelado',
+                    'total' => 'required|numeric|min:0',
+                ]);
+            
+                $pedido = Pedido::findOrFail($id);
+                
+                // Actualizar los campos
+                $pedido->cantidadProductos = $request->input('cantidadProductos');
+                $pedido->estadoActual = $request->input('estadoActual');
+                $pedido->total = $request->input('total');
+                
+                // Guardar los cambios
+                $pedido->save();
+            
+                // Redireccionar o mostrar mensaje de éxito
+                return redirect()->route('pedidos')->with('success', 'Pedido actualizado correctamente.');
+            }
+            public function borrarPedido($id)
+        {
+            try {
+                // Buscar el pedido por ID
+                $pedido = Pedido::findOrFail($id);
 
-        // Eliminar el pedido
-        $pedido->delete(); 
+                // Eliminar el pedido
+                $pedido->delete(); 
 
-        // Redireccionar con mensaje de éxito
-        return redirect()->route('pedidos')->with('success', 'Pedido eliminado correctamente.');
-    } 
-    catch (\Exception $e) {
-        // Redireccionar con mensaje de error si ocurre un problema
-        return redirect()->route('pedidos')->with('error', 'Ocurrió un error al eliminar el pedido.');
-    }
-}
+                // Redireccionar con mensaje de éxito
+                return redirect()->route('pedidos')->with('success', 'Pedido eliminado correctamente.');
+            } 
+            catch (\Exception $e) {
+                // Redireccionar con mensaje de error si ocurre un problema
+                return redirect()->route('pedidos')->with('error', 'Ocurrió un error al eliminar el pedido.');
+            }
+        }
+
+        public function aumentarCantidad($id)
+        {
+            try {
+                // Buscar el producto por ID
+                $producto = Producto::findOrFail($id);
+
+                // Incrementar la cantidad
+                $producto->cantidad += 1;
+                $producto->save();
+
+                // Redirigir con mensaje de éxito
+                return redirect()->back()->with('success', 'Cantidad aumentada correctamente.');
+            } catch (\Exception $e) {
+                // Redirigir con mensaje de error
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la cantidad.');
+            }
+        }
+
+        public function disminuirCantidad($id)
+        {
+            try {
+                // Buscar el producto por ID
+                $producto = Producto::findOrFail($id);
+
+                // Disminuir la cantidad si es mayor a 0
+                if ($producto->cantidad > 0) {
+                    $producto->cantidad -= 1;
+                    $producto->save();
+                }
+
+                // Redirigir con mensaje de éxito
+                return redirect()->back()->with('success', 'Cantidad disminuida correctamente.');
+            } catch (\Exception $e) {
+                // Redirigir con mensaje de error
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la cantidad.');
+            }
+        }
 
 }
 

@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/productos', [ProductoController::class, 'indexProductos'])->name('productos');
     Route::get('/crearProductos', [ProductoController::class, 'crearProductos'])->name('crearProductos');
@@ -32,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pedidos', [ProductoController::class, 'index2'])->name('pedidos');
     Route::get('/crearPedidos', [ProductoController::class, 'crearPedidos'])->name('crearPedidos');
     Route::post('/pedidosStore', [ProductoController::class, 'store'])->name('pedidosStore');
+
    //editar pedido
     Route::get('/pedidos/{id}/editar', [ProductoController::class, 'editarPedido'])->name('editarPedido');
     Route::put('/pedidos/{id}', [ProductoController::class, 'actualizarPedido'])->name('actualizarPedido');
@@ -43,9 +46,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/crearCliente', [ClienteController::class, 'crearCliente'])->name('crearCliente');
     Route::post('/clienteStore', [ClienteController::class, 'store'])->name('clienteStore');
     
-  //  Route::get('/stock-productos', [StockController::class, 'index'])->name('stock.productos');
-   // Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
-    //Route::get('/configuracion', [ConfiguracionController::class, 'index'])->name('configuracion');
+    //boton aumentar/ disminuir cantidad productos in stock
+    Route::put('/productos/{id}/incrementar', [ProductoController::class, 'aumentarCantidad'])->name('aumentarCantidad');
+    Route::put('/productos/{id}/disminuir', [ProductoController::class, 'disminuirCantidad'])->name('disminuirCantidad');
+
 });
 
 require __DIR__.'/auth.php';
